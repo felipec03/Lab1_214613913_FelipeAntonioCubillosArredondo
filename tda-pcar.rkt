@@ -1,6 +1,6 @@
 #lang racket
-(provide c)
-(provide t)
+(provide ct)
+(provide tr)
 
 (provide pcar)
 (provide get-pcar-type)
@@ -12,15 +12,15 @@
   (lambda(car-type)
     (list car-type)))
 
-(define c (car-type "central"))
-(define t (car-type "terminal"))
+(define ct (car-type "central"))
+(define tr (car-type "terminal"))
 
 ;Dom: id (int) X capacity (positive integer) X model (string) X type (car-type) -> Rec: pcar
 (define pcar
   (lambda (id capacity model type)
     (list id capacity model type)))
 
-(define pc0 (pcar 0 100 "NS-74" c))
+(define pc0 (pcar 0 100 "NS-74" ct))
 
 (define get-pcar-type
   (lambda(pcar)
