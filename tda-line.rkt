@@ -2,18 +2,12 @@
 (require "tda-section.rkt")
 (require "tda-station.rkt")
 
-(provide (all-defined-out))
-
 (define natural-list-sum
   (lambda(lista)
     (cond
       [(null? lista) 0]
       [else
        (= (car lista) (natural-list-sum (cdr lista)))])))
-
-(define get-sub-section
-  (lambda(line s1 s2)
-    line))
 
 ; Dom: id (int) X name (string) X rail-type (string) X section* (* señala que se pueden agregar 0 o más tramos) -> Rec: line
 ; Para el parametro section, tendria sentido pasar una lista de estaciones
