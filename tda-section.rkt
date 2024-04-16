@@ -1,8 +1,6 @@
 #lang racket
 (require "tda-station.rkt")
-(provide section)
-(provide get-cost)
-(provide get-length)
+(provide (all-defined-out))
 
 ; Dom: point1 (station)  X point2 (station) X distance (positive-number) X cost (positive-number U {0}) -> Rec: section
 (define section
@@ -19,7 +17,7 @@
   (lambda (section)
     car(car(cdr(cdr(cdr section))))))
 
-(define get-length
+(define get-distance
   (lambda (section)
     car(car(cdr(cdr section)))))
 
