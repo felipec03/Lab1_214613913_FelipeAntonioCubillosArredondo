@@ -74,7 +74,7 @@
 ; RESOLVER CON RECURSION NATURAL
 (define line-add-section
   (lambda(line section)
-    line))
+    ))
 
 ; Dom: line -> Rec: boolean
 (define line?
