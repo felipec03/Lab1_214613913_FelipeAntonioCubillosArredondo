@@ -39,7 +39,7 @@
   (lambda(pcar-list pcar position auxnum auxpair)
     (cond
       [(= position auxnum) (cons auxpair (cons pcar pcar-list))]
-      [(aux-train-add-car (cdr pcar-list) pcar position (+ auxnum 1) (cons auxpair (car pcar-list)))])))
+      [(aux-train-add-car (cdr pcar-list) pcar position (+ auxnum 1) (append auxpair (car pcar-list)))])))
 
 (define train-add-car
   (lambda(train pcar position)
@@ -80,5 +80,3 @@
 
 
 (define t1 (train 1 "CAF" "UIC 60 ASCE" 70 2 pc1 pc0 pc3 pc2 pc4))
-
-(train-add-car t1 pc5 )
