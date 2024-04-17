@@ -47,7 +47,7 @@
 
 (define train-add-car
   (lambda(train pcar position)
-    (cons (get-rest-train train) (aux-train-add-car (get-pcar-list train) pcar position 0 '()))))
+    (cons (get-rest-train train) (aux-train-add-car (get-pcar-list train) pcar position 0 null))))
 
 ; Dom: train (train) X pcar (pcar) X position (positive-integer U {0}) -> Rec: train
 ; se debe usar recursividad
@@ -64,7 +64,11 @@
 ; se debe usar recursividad
 (define train?
   (lambda(train)
-    #t))
+    (define w-train?
+      (lambda (pcar-list counter)
+        (cond
+          [(and (eq? (get-pcar-type(car pcar-list)) "terminal") (eq? (get-pcar-type(car(reverse pcar-list))) "terminal")) #t])))
+    (w-train? (get-pcar-list train) 0)))
 
 ; Alguna recursividad; en este caso, natural.
 ; Dom: train -> Rec: positive-number U {0}
@@ -90,4 +94,6 @@
 
 (define t1 (train 1 "CAF" "UIC 60 ASCE" 70 2 pc1 pc0 pc3 pc2 pc4))
 
-(train-add-car t1 pc5 0)
+(train-add-car t1 pc5 2)
+
+(train? t1)
