@@ -54,6 +54,3 @@
 (define subway-assign-driver-to-train
   (lambda(subway driver-id train-id departure-time departure-station arrival-station)
     1))
-
-(define sw0 (subway 0 "Metro Santiago"))
-(define sw1 (subway-add-line sw0 l1))

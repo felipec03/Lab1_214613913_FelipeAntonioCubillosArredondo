@@ -1,10 +1,9 @@
 #lang racket
-(require "tda-station.rkt")
 (require "tda-section.rkt")
-
-
 (provide (all-defined-out))
 
+; Funcion auxiliar para facilitar comprensión de código
+; Dom: list -> Rec: num
 (define natural-list-sum
   (lambda(lista)
     (cond

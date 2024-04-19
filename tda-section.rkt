@@ -10,6 +10,10 @@
       [(equal? (get-station-type point2) "combinacion")(list point1 point2 (abs distance) (abs cost))]
       [(equal? (get-station-type point1) "regular")(list point1 point2 (abs distance) (abs cost))]
       [(equal? (get-station-type point1) "regular")(list point1 point2 (abs distance) (abs cost))]
+      [(equal? (get-station-type point1) "terminal")(list point1 point2 (abs distance) (abs cost))]
+      [(equal? (get-station-type point1) "terminal")(list point1 point2 (abs distance) (abs cost))]
+      [(equal? (get-station-type point1) "mantencion")(list point1 point2 (abs distance) (abs cost))]
+      [(equal? (get-station-type point1) "mantencion")(list point1 point2 (abs distance) (abs cost))]
       [else null]
     )))
 

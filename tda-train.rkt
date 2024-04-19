@@ -69,14 +69,15 @@
       [(null? list) counter]
       [(if
         (equal? (car list) element) (aux-count (cdr list) element (+ 1 counter)) (aux-count (cdr list) element counter))])))
-
+; El paso recursivo ocurre en la fimcopm aixpoñoar
 (define train?
   (lambda(train)
     (define w-train?
       (lambda (pcar-list)
         (cond
           [(and (equal? (get-pcar-type(car pcar-list)) "terminal") (equal? (get-pcar-type(car(reverse pcar-list))) "terminal")
-                (= 2 (apply +(map (lambda(pcar) (aux-count pcar "terminal" 0)) pcar-list)))) #t])))
+                (= 2 (apply +(map (lambda(pcar) (aux-count pcar "terminal" 0)) pcar-list)))) #t]
+          ['()])))
     (w-train? (get-pcar-list train))))
 
 ; Alguna recursividad; en este caso, natural.
