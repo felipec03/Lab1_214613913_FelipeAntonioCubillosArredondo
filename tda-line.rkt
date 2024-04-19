@@ -1,6 +1,9 @@
 #lang racket
-(require "tda-section.rkt")
 (require "tda-station.rkt")
+(require "tda-section.rkt")
+
+
+(provide (all-defined-out))
 
 (define natural-list-sum
   (lambda(lista)
@@ -74,12 +77,21 @@
 ; RESOLVER CON RECURSION NATURAL
 (define line-add-section
   (lambda(line section)
-    ))
+    (define wrapper-add-section
+      (lambda(stations section)
+        (cond
+          [(null? stations) ])))
+    (wrapper-add-section (get-line-stations line) section)))
 
 ; Dom: line -> Rec: boolean
+; Emplear algún tipo de recursividad
+
 (define line?
   (lambda(line)
-    #t))
+    (define wrapper-line?
+      (lambda(stations)
+        stations))
+    (wrapper-line? (get-line-stations line))))
 
 (define e0 (station 1 "USACH" c 30))
 (define e1 (station 2 "Estación Central" c 45))
@@ -106,3 +118,5 @@
 
 (define l0 (line 0 "Línea 0" "UIC 60 ASCE"))
 (define l1 (line 1 "Línea 1" "100 R.E." s0 s1 s2 s3 s5 s7 s8 s9))
+
+(car(get-line-stations l1))

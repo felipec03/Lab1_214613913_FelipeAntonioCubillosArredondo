@@ -2,7 +2,6 @@
 (require "tda-train.rkt")
 (require "tda-driver.rkt")
 (require "tda-line.rkt")
-(require "tda-section.rkt")
 
 ;Dom: id (int) X nombre (string) -> Rec: subway
 (define subway

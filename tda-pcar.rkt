@@ -1,16 +1,11 @@
 #lang racket
-(provide ct)
-(provide tr)
-
-(provide pcar)
-(provide get-pcar-type)
-(provide get-pcar-capacity)
+(provide (all-defined-out))
 
 ; Implementación de tipo de carro
 ; Uso string para dar mas detalle a los tipos.
 (define car-type
   (lambda(car-type)
-    (list car-type)))
+    car-type))
 
 (define ct (car-type "central"))
 (define tr (car-type "terminal"))
@@ -24,7 +19,7 @@
 
 (define get-pcar-type
   (lambda(pcar)
-    (car(car (cdddr pcar)))))
+    (car (cdddr pcar))))
 
 (define get-pcar-capacity
   (lambda (pcar)

@@ -43,11 +43,11 @@
   (lambda(pcar-list pcar position auxnum auxpair)
     (cond
       [(= position auxnum) (cons auxpair (cons pcar pcar-list))]
-      [(aux-train-add-car (cdr pcar-list) pcar position (+ auxnum 1) (cons auxpair (car pcar-list)))])))
+      [(aux-train-add-car (cdr pcar-list) pcar position (+ auxnum 1) (cons (car pcar-list) auxpair))])))
 
 (define train-add-car
   (lambda(train pcar position)
-    (cons (get-rest-train train) (aux-train-add-car (get-pcar-list train) pcar position 0 null))))
+    (cons (get-rest-train train) (aux-train-add-car (reverse(get-pcar-list train)) pcar position 0 null))))
 
 ; Dom: train (train) X pcar (pcar) X position (positive-integer U {0}) -> Rec: train
 ; se debe usar recursividad
@@ -57,18 +57,27 @@
       (lambda(pcar-list position auxnum auxpair)
         (cond
           [(= position auxnum) (append auxpair (cdr pcar-list))]
-          [(aux-train-remove-car (cdr pcar-list) position (+ auxnum 1) (cons auxpair (car pcar-list)))])))
+          [(aux-train-remove-car (cdr pcar-list) position (+ auxnum 1) (cons (car pcar-list) auxpair))])))
     (aux-train-remove-car (get-pcar-list train) position 0 '())))
 
 ; Dom: train -> Rec: boolean
 ; se debe usar recursividad
+; FUNCION AUXILIAR PARA CONTAR LA CANTIDAD DE CARROS TERMINALES QUE HAY EN UN TREN!
+(define aux-count
+  (lambda(list element counter)
+    (cond
+      [(null? list) counter]
+      [(if
+        (equal? (car list) element) (aux-count (cdr list) element (+ 1 counter)) (aux-count (cdr list) element counter))])))
+
 (define train?
   (lambda(train)
     (define w-train?
-      (lambda (pcar-list counter)
+      (lambda (pcar-list)
         (cond
-          [(and (eq? (get-pcar-type(car pcar-list)) "terminal") (eq? (get-pcar-type(car(reverse pcar-list))) "terminal")) #t])))
-    (w-train? (get-pcar-list train) 0)))
+          [(and (equal? (get-pcar-type(car pcar-list)) "terminal") (equal? (get-pcar-type(car(reverse pcar-list))) "terminal")
+                (= 2 (apply +(map (lambda(pcar) (aux-count pcar "terminal" 0)) pcar-list)))) #t])))
+    (w-train? (get-pcar-list train))))
 
 ; Alguna recursividad; en este caso, natural.
 ; Dom: train -> Rec: positive-number U {0}
@@ -92,8 +101,6 @@
 (define pc5 (pcar 5 120 "AS-2014" ct))
 
 
-(define t1 (train 1 "CAF" "UIC 60 ASCE" 70 2 pc1 pc0 pc3 pc2 pc4))
-
-(train-add-car t1 pc5 2)
+(define t1 (train 1 "CAF" "UIC 60 ASCE" 70 2 pc1 pc0 pc3 pc4 pc2))
 
 (train? t1)

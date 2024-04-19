@@ -1,16 +1,11 @@
 #lang racket
 ; Implementación de tipo de estación
 ; Uso string para dar mas detalle a los tipos.
-(provide station)
-(provide get-station-type)
-(provide c)
-(provide r)
-(provide m)
-(provide t)
+(provide (all-defined-out))
 
 (define station-type
   (lambda (type-name)
-    (list type-name)))
+    type-name))
 
 (define c (station-type "combinacion"))
 (define r (station-type "regular"))
@@ -26,7 +21,4 @@
 
 (define get-station-type
   (lambda(station)
-    (car(car(cdr (cdr station))))))
-
-(define e0 (station 1 "los heroes" c 10))
-(define e2 (station 2 "error estation" c 0))
+    (car(cdr (cdr station)))))
