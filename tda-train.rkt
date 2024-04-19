@@ -25,7 +25,7 @@
 ; Dom: train -> Rec: pcar
 (define get-last-pcar
   (lambda (train)
-    (car(reverse(car(cdr(cddddr t1)))))))
+    (car(reverse(car(cdr(cddddr train)))))))
 
 ; Dom: train -> Rec: list (pcar)
 (define get-pcar-list
