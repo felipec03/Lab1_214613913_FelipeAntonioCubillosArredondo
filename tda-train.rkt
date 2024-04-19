@@ -91,16 +91,3 @@
 (define train-capacity
   (lambda(train)
     (separate-train-capacity (get-pcar-list train))))
-
-
-(define pc0 (pcar 0 100 "NS-74" ct))
-(define pc1 (pcar 1 100 "NS-74" tr))
-(define pc2 (pcar 2 150 "NS-74" tr))
-(define pc3 (pcar 3 100 "NS-74" ct))
-(define pc4 (pcar 4 100 "AS-2014" ct))
-(define pc5 (pcar 5 120 "AS-2014" ct))
-
-
-(define t1 (train 1 "CAF" "UIC 60 ASCE" 70 2 pc1 pc0 pc3 pc4 pc2))
-
-(train? t1)
