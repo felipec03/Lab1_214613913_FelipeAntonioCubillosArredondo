@@ -17,6 +17,18 @@
   (lambda (id name rail-type . sections)
     (list id name rail-type sections)))
 
+(define get-line-id
+  (lambda(line)
+    (car line)))
+
+(define get-line-name
+  (lambda(line)
+    (car (cdr line))))
+
+(define get-line-rail-type
+  (lambda(line)
+    (car (cddr line))))
+
 ; GETTERS
 ; Dom: line -> Rec: station+ (1 o màs)
 (define get-line-stations
@@ -44,9 +56,15 @@
     (wrapper-line-length (get-line-stations line))))
 
 ; Dom: line x station1 x station2 -> Rec: positive-number
+; Se puede resolver con recusrividad
 (define line-section-length
-  (lambda(line station1 station2)
-    (apply + (map(lambda(s) (get-distance s)) (get-subsection line station1 station2)))))
+  (lambda (line station1 station2)
+    (define wrapper-line-section-length
+      (lambda (stations station1 station2)
+        (cond
+          [(null? stations) 0]
+          [(+ (get-distance(car stations)) (wrapper-line-section-length (cdr stations) station1 station2))])))
+    (wrapper-line-section-length (get-subsection line station1 station2) station1 station2)))
 
 ; Dom: line -> Rec: positive-number U {0}
 ; RESOLVER CON RECURISÓN NATURAL
@@ -71,20 +89,30 @@
           [(wrapper-line-section-cost (cdr stations) station1 station2 (+ output (get-cost(car stations))))])))
     (wrapper-line-section-cost (get-subsection line station1 station2) station1 station2 0)))
 
-
 ; Dom: line (line) X section (section) -> Rec: line
 ; RESOLVER CON RECURSION NATURAL
-(define line-add-section
-  (lambda(line section)
-    (define wrapper-add-section
-      (lambda(stations section)
-        (cond
-          [(null? stations) ])))
-    (wrapper-add-section (get-line-stations line) section)))
 
+; Función auxiliar recursiva que determina si una sección está en una linea
+; ACÁ ES EL PASO RECURSIVO NATURAL
+; Dom: sections+ | null x section -> Rec: boolean
+(define aux-section-in-line?
+  (lambda(line-sections section)
+    (cond
+      [(empty? line-sections) #f]
+      [(equal? (first line-sections) section) #t]
+      [else (aux-section-in-line? (rest line-sections) section)])))
+
+(define line-add-section
+  (lambda(linea section)
+    (define wrapper-line-add-section
+      (lambda(sections section)
+        (cond
+          [(eq? #t (aux-section-in-line? sections section)) null]
+          [else (cons section sections)])))
+    (line (get-line-id linea) (get-line-name linea) (get-line-rail-type linea) (wrapper-line-add-section (get-line-stations linea) section))))
+    
 ; Dom: line -> Rec: boolean
 ; Emplear algún tipo de recursividad
-
 (define line?
   (lambda(line)
     (define wrapper-line?

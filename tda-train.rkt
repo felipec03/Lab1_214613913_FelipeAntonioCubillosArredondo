@@ -10,11 +10,17 @@
 ;[(and (equal? (get-pcar-type(get-first-pcar train)) "terminal") (equal? (get-pcar-type(get-last-pcar train)) "terminal")) null]
 
 ; Dom: id (int) X maker (string) X rail-type (string) X speed (positive number) X station-stay-time (positive number U {0}) X pcar -> Rec: train
-(define train
+(define constructor-train
   (lambda (id maker rail-type speed station-stay-time . pcars)
     (cond
       [(not (positive? speed)) null]
       [else (list id maker rail-type speed (abs station-stay-time) pcars)])))
+
+(define train
+  (lambda (id maker rail-type speed station-stay-time . listapcars)
+    (cond
+      [(empty? (get-pcar-list (constructor-train id maker rail-type speed station-stay-time listapcars))) null]
+      [(eq? (train? (constructor-train id maker rail-type speed station-stay-time listapcars)) #t) (constructor-train id maker rail-type speed station-stay-time listapcars)])))
 
 ; Capa Getters 
 ; Dom: train -> Rec: pcar
@@ -30,7 +36,7 @@
 ; Dom: train -> Rec: list (pcar)
 (define get-pcar-list
   (lambda(train)
-    (car(reverse train))))
+    (car(car(reverse train)))))
 
 (define get-rest-train
   (lambda(train)
@@ -69,16 +75,14 @@
       [(null? list) counter]
       [(if
         (equal? (car list) element) (aux-count (cdr list) element (+ 1 counter)) (aux-count (cdr list) element counter))])))
+
 ; El paso recursivo ocurre en la fimcopm aixpoñoar
 (define train?
   (lambda(train)
-    (define w-train?
-      (lambda (pcar-list)
-        (cond
-          [(and (equal? (get-pcar-type(car pcar-list)) "terminal") (equal? (get-pcar-type(car(reverse pcar-list))) "terminal")
-                (= 2 (apply +(map (lambda(pcar) (aux-count pcar "terminal" 0)) pcar-list)))) #t]
-          ['()])))
-    (w-train? (get-pcar-list train))))
+    (cond
+      [(empty? (get-pcar-list train)) #f]
+      [else (and (equal? (get-pcar-type(car (get-pcar-list train))) "terminal") (equal? (get-pcar-type(car(reverse (get-pcar-list train)))) "terminal")
+                 (= 2 (apply +(map (lambda(pcar) (aux-count pcar "terminal" 0)) (get-pcar-list train))))) #t])))
 
 ; Alguna recursividad; en este caso, natural.
 ; Dom: train -> Rec: positive-number U {0}

@@ -19,11 +19,10 @@
 
 (define get-pcar-type
   (lambda(pcar)
-    (car (cdddr pcar))))
+    (cdddr pcar)))
 
 (define get-pcar-capacity
   (lambda (pcar)
     (cond
       [(null? pcar) 0]
-      [else (car(cdr pcar))])
-    ))
+      [else (car(cdr pcar))])))

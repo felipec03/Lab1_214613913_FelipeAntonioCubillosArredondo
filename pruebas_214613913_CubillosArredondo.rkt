@@ -3,6 +3,9 @@
 (require "tda-station.rkt")
 (require "tda-section.rkt")
 (require "tda-line.rkt")
+(require "tda-pcar.rkt")
+(require "tda-train.rkt")
+
 ; TDA STATION
 (define e0 (station 0 "Vespucio Norte" t 1))
 (define e1 (station 1 "Zapadores" r 1))
@@ -60,10 +63,56 @@
 (define s22 (section e22 e23 2.3 230))
 
 ; TDA LINE
-(define l0 (line 2 "Linea 2" "100 RE" s0 s1 s2 s3 s4 s5 s6))
+(define l0 (line 2 "Linea 2" "100 RE" s0 s1 s2 s3 s4 s5 s6 s7))
 (define l1 (line 3 "Linea 3" "100 RE" s8 s9 s10 s11 s12 s14 s15))
 (define l2 (line 1 "Linea 1" "100 RE" s16 s17 s18 s19 s20 s21 s22))
+
+(line-length l0)
+(line-length l1)
+(line-length l2)
+
+(line-section-length l0 s2 s5)
+(line-section-length l1 s10 s12)
+(line-section-length l2 s17 s22)
+
+(line-cost l0)
+(line-cost l1)
+(line-cost l2)
+
+(line-section-cost l0 s2 s5)
+(line-section-cost l1 s10 s12)
+(line-section-cost l2 s17 s22)
+
+(line-add-section l0 s12)
+
 ; TDA PCAR
+(define pc0 (pcar 0 100 "NS-74" tr))
+(define pc1 (pcar 1 100 "NS-74" ct))
+(define pc2 (pcar 2 100 "NS-74" ct))
+(define pc3 (pcar 3 100 "NS-74" tr))
+
+(define pc4 (pcar 4 100 "NS-74" tr))
+(define pc5 (pcar 5 100 "NS-74" ct))
+(define pc6 (pcar 6 100 "NS-74" ct))
+(define pc7 (pcar 7 100 "NS-74" tr))
+
+(define pc8 (pcar 8 100 "NS-74" tr))
+(define pc9 (pcar 9 100 "NS-74" ct))
+(define pc10 (pcar 10 100 "NS-74" tr))
+
+(define pc11 (pcar 11 100 "NS-74" ct))
+(define pc12 (pcar 12 100 "NS-74" ct))
+(define pc13 (pcar 13 100 "NS-74" ct))
+
 ; TDA TRAIN
-; TDA DRIVER
-; TDA SUBWAY
+(define t1(train 1 "CAF" "UIC 70 ASCE" 60 10 pc0 pc1 pc2 pc3))
+(define t2(train 2 "CAF" "UIC 70 ASCE" 60 10 pc4 pc5 pc6 pc7))
+(define t3(train 3 "CAF" "UIC 70 ASCE" 60 10 pc8 pc9 pc10))
+
+t1
+t2
+t3
+
+(car(train-add-car t1 pc11 2))
+(train-add-car t2 pc12 1)
+(train-add-car t3 pc13 1)
