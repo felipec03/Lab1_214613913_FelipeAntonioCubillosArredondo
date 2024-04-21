@@ -1,5 +1,5 @@
 #lang racket
-(require "tda-section.rkt_21461391_CubillosArredondo")
+(require "tda-section_21461391_CubillosArredondo.rkt")
 (provide (all-defined-out))
 
 ; Funcion auxiliar para facilitar comprensión de código

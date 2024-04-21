@@ -1,7 +1,7 @@
 #lang racket
-(require "tda-train.rkt_21461391_CubillosArredondo")
-(require "tda-driver.rkt_21461391_CubillosArredondo")
-(require "tda-line.rkt_21461391_CubillosArredondo")
+(require "tda-train_21461391_CubillosArredondo.rkt")
+(require "tda-driver_21461391_CubillosArredondo.rkt")
+(require "tda-line_21461391_CubillosArredondo.rkt")
 
 ;Dom: id (int) X nombre (string) -> Rec: subway
 (define subway
