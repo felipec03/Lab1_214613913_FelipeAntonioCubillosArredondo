@@ -17,6 +17,10 @@
 
 (define pc0 (pcar 0 100 "NS-74" ct))
 
+(define get-pcar-id
+  (lambda(pcar)
+    (car pcar)))
+
 (define get-pcar-type
   (lambda(pcar)
     (cdddr pcar)))

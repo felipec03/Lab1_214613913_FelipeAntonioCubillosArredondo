@@ -98,21 +98,31 @@
 
 (define pc8 (pcar 8 100 "NS-74" tr))
 (define pc9 (pcar 9 100 "NS-74" ct))
-(define pc10 (pcar 10 100 "NS-74" tr))
+(define pc10 (pcar 10 100 "NS-74" ct))
+(define pc11 (pcar 11 100 "NS-74" tr))
 
-(define pc11 (pcar 11 100 "NS-74" ct))
 (define pc12 (pcar 12 100 "NS-74" ct))
 (define pc13 (pcar 13 100 "NS-74" ct))
+(define pc14 (pcar 13 100 "NS-74" ct))
+
 
 ; TDA TRAIN
 (define t1(train 1 "CAF" "UIC 70 ASCE" 60 10 pc0 pc1 pc2 pc3))
 (define t2(train 2 "CAF" "UIC 70 ASCE" 60 10 pc4 pc5 pc6 pc7))
-(define t3(train 3 "CAF" "UIC 70 ASCE" 60 10 pc8 pc9 pc10))
+(define t3(train 3 "CAF" "UIC 70 ASCE" 60 10 pc8 pc9 pc10 pc11))
 
-t1
-t2
-t3
+(train-add-car t1 pc12 2)
+(train-add-car t2 pc13 1)
+(train-add-car t3 pc14 1)
 
-(car(train-add-car t1 pc11 2))
-(train-add-car t2 pc12 1)
-(train-add-car t3 pc13 1)
+(train-remove-car t1 1)
+(train-remove-car t2 1)
+(train-remove-car t3 1)
+
+(train? t1)
+(train? t2)
+(train? t3)
+
+(train-capacity t1)
+(train-capacity t2)
+(train-capacity t3)

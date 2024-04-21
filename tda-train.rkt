@@ -22,7 +22,27 @@
       [(empty? (get-pcar-list (constructor-train id maker rail-type speed station-stay-time listapcars))) null]
       [(eq? (train? (constructor-train id maker rail-type speed station-stay-time listapcars)) #t) (constructor-train id maker rail-type speed station-stay-time listapcars)])))
 
-; Capa Getters 
+; Capa Getters
+(define get-train-id
+  (lambda(train)
+    (car train)))
+
+(define get-train-maker
+  (lambda(train)
+    (car (cdr train))))
+
+(define get-train-rail-type
+  (lambda(train)
+    (car (cddr train))))
+
+(define get-train-speed
+  (lambda(train)
+    (car (cdddr train))))
+
+(define get-train-station-stay-time
+  (lambda(train)
+    (car (cddddr train))))
+
 ; Dom: train -> Rec: pcar
 (define get-first-pcar
   (lambda (train)
@@ -38,10 +58,6 @@
   (lambda(train)
     (car(car(reverse train)))))
 
-(define get-rest-train
-  (lambda(train)
-    (reverse(cdr(reverse train)))))
-
 ; Requisitos Funcionales
 ; Dom: train (train) X pcar (pcar) X position (positive-integer U {0}) -> Rec: train
 ; se debe usar recursividad
@@ -52,19 +68,22 @@
       [(aux-train-add-car (cdr pcar-list) pcar position (+ auxnum 1) (cons (car pcar-list) auxpair))])))
 
 (define train-add-car
-  (lambda(train pcar position)
-    (cons (get-rest-train train) (aux-train-add-car (reverse(get-pcar-list train)) pcar position 0 null))))
-
+  (lambda(traina pcar position)
+    (train (get-train-id traina) (get-train-maker traina) (get-train-rail-type traina) (get-train-speed traina) (get-train-station-stay-time traina) (aux-train-add-car (get-pcar-list traina) pcar position 0 '() ))))
 ; Dom: train (train) X pcar (pcar) X position (positive-integer U {0}) -> Rec: train
 ; se debe usar recursividad
-(define train-remove-car
+(define outer-train-remove-car
   (lambda(train position)
     (define aux-train-remove-car
       (lambda(pcar-list position auxnum auxpair)
         (cond
           [(= position auxnum) (append auxpair (cdr pcar-list))]
-          [(aux-train-remove-car (cdr pcar-list) position (+ auxnum 1) (cons (car pcar-list) auxpair))])))
-    (aux-train-remove-car (get-pcar-list train) position 0 '())))
+          [(aux-train-remove-car (cdr pcar-list) position (+ 1 auxnum) (cons (car pcar-list) auxpair))])))
+   (aux-train-remove-car (get-pcar-list train) position 0 '() )))
+
+(define train-remove-car
+  (lambda(traina position)
+    (train (get-train-id traina) (get-train-maker traina) (get-train-rail-type traina) (get-train-speed traina) (get-train-station-stay-time traina) (outer-train-remove-car traina position) )))
 
 ; Dom: train -> Rec: boolean
 ; se debe usar recursividad
