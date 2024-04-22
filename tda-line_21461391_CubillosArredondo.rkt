@@ -1,5 +1,6 @@
 #lang racket
 (require "tda-section_21461391_CubillosArredondo.rkt")
+(require "tda-station_21461391_CubillosArredondo.rkt")
 (provide (all-defined-out))
 
 ; Funcion auxiliar para facilitar comprensión de código
@@ -35,13 +36,28 @@
   (lambda(line)
     (car (reverse line))))
 
-; Dom: line -> Rec: station+ (1 o màs)
+; Dom: line x station1 x station2 -> Rec: station+ (1 o màs)
+
+(define get-first-section-by-name
+  (lambda (station-list station-name)
+    (cond
+      [(equal? (car(cdr(car(car station-list)))) station-name) (car station-list)]
+      [(get-first-section-by-name (cdr station-list) station-name)])))
+
+; (second(car(cddr(reverse (car(get-line-stations mil0))))))
+(define get-second-section-by-name
+  (lambda (station-list station-name)
+    (cond
+      [(equal? (second(car(cddr(reverse (car station-list))))) station-name) (car station-list)]
+      [(get-second-section-by-name (cdr station-list) station-name)])))
+
+
 (define get-subsection
   (lambda (line point1 point2)
     (define wrapper-get-subsection
       (lambda(stations point1 point2)
         (reverse(member point2 (reverse(member point1 stations))))))
-    (wrapper-get-subsection (get-line-stations line) point1 point2)))
+    (wrapper-get-subsection (get-line-stations line) (get-first-section-by-name (get-line-stations line) point1) (get-second-section-by-name (get-line-stations line) point2))))
 
 ; REQUISITOS FUNCIONALES:
 
@@ -64,7 +80,8 @@
         (cond
           [(null? stations) 0]
           [(+ (get-distance(car stations)) (wrapper-line-section-length (cdr stations) station1 station2))])))
-    (wrapper-line-section-length (get-subsection line station1 station2) station1 station2)))
+    (wrapper-line-section-length (get-subsection line station1 station2)
+                                 (get-first-section-by-name (get-line-stations line) station1) (get-second-section-by-name (get-line-stations line) station2))))
 
 ; Dom: line -> Rec: positive-number U {0}
 ; RESOLVER CON RECURISÓN NATURAL
@@ -87,7 +104,8 @@
         (cond
           [(null? stations) output]
           [(wrapper-line-section-cost (cdr stations) station1 station2 (+ output (get-cost(car stations))))])))
-    (wrapper-line-section-cost (get-subsection line station1 station2) station1 station2 0)))
+    (wrapper-line-section-cost (get-subsection line station1 station2)
+                               (get-first-section-by-name (get-line-stations line) station1) (get-second-section-by-name (get-line-stations line) station2) 0)))
 
 ; Dom: line (line) X section (section) -> Rec: line
 ; RESOLVER CON RECURSION NATURAL
@@ -113,9 +131,10 @@
     
 ; Dom: line -> Rec: boolean
 ; Emplear algún tipo de recursividad
+; FUNCION AUXILIAR PARA CONTAR LA CANTIDAD DE ESTACIONES TERMINALES QUE HAY EN UNA LÍNEA!!
+
 (define line?
   (lambda(line)
-    (define wrapper-line?
-      (lambda(stations)
-        stations))
-    (wrapper-line? (get-line-stations line))))
+    (cond
+      [(empty? (get-line-stations line)) #f]
+      [else (and (equal? (get-station-type(car(car(get-line-stations line)))) "terminal") (equal? (get-station-type(car(car(reverse (get-line-stations line))))) "terminal")) #t])))

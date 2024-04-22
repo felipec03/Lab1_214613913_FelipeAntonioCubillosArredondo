@@ -1,0 +1,44 @@
+***AUTOEVALUACIÓN***
+Felipe Antonio Cubillos Arredondo
+21.461.391-3
+
+*Requisitos Funcionales*
+- TDA STATION - constructor: 1
+- TDA SECTION - constructor: 1
+- TDA LINE - constructor: 1
+- TDA LINE - line-length: 1
+- TDA LINE - line-section-length: 1
+- TDA LINE - line-cost: 1
+- TDA LINE - line-section-cost: 1
+- TDA LINE - line-add-section: 1
+- TDA LINE - line?: 0,75
+- TDA PCAR - constructor: 1
+- TDA TRAIN - constructor: 1
+- TDA TRAIN - train-add-car: 0,5
+- TDA TRAIN - train-remove-car: 0,75
+- TDA TRAIN - train?: 0,5
+- TDA TRAIN - train-capacity: 1
+- TDA DRIVER - constructor: 1
+- TDA SUBWAY - constructor: 1
+- TDA SUBWAY - subway-add-train: 1
+- TDA SUBWAY - subway-add-line: 1
+- TDA SUBWAY - subway-add-driver: 1
+- TDA SUBWAY - subway->string: 0,75
+- TDA SUBWAY - subway-rise-section-cost: 0
+- TDA SUBWAY - subway-set-station-stop-time: 0
+- TDA SUBWAY - subway-assign-train-to-line: 0
+- TDA SUBWAY - subway-assign-driver-to-trin: 0
+- TDA SUBWAY - where-is-train: 0
+- TDA SUBWAY - subway-train-path: 0
+
+*Requisitos NO Funcionales*
+- Git: 1
+- Informe: 1
+- Autoevaluación: 1
+- Lenguaje: 1
+- Versión: 1
+- Estrictamente Declarativo: 1
+- Documentación: 1
+- Dominio y Recorrido: 1
+- Organización de Archivos: 1
+- Prerequisitos: 0,75

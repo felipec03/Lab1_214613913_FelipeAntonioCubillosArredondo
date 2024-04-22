@@ -19,7 +19,7 @@
 (define train
   (lambda (id maker rail-type speed station-stay-time . listapcars)
     (cond
-      [(empty? (get-pcar-list (constructor-train id maker rail-type speed station-stay-time listapcars))) null]
+      [(empty? (get-pcar-list (constructor-train id maker rail-type speed station-stay-time listapcars))) (constructor-train id maker rail-type speed station-stay-time listapcars)]
       [(eq? (train? (constructor-train id maker rail-type speed station-stay-time listapcars)) #t) (constructor-train id maker rail-type speed station-stay-time listapcars)])))
 
 ; Capa Getters
@@ -56,7 +56,10 @@
 ; Dom: train -> Rec: list (pcar)
 (define get-pcar-list
   (lambda(train)
-    (car(car(reverse train)))))
+    (cond
+      [(empty? (car(reverse train))) '()]
+      [(car(car(reverse train)))]
+    )))
 
 ; Requisitos Funcionales
 ; Dom: train (train) X pcar (pcar) X position (positive-integer U {0}) -> Rec: train
@@ -69,7 +72,12 @@
 
 (define train-add-car
   (lambda(traina pcar position)
-    (train (get-train-id traina) (get-train-maker traina) (get-train-rail-type traina) (get-train-speed traina) (get-train-station-stay-time traina) (aux-train-add-car (get-pcar-list traina) pcar position 0 '() ))))
+    (cond
+      [(empty? (get-pcar-list traina)) (constructor-train (get-train-id traina) (get-train-maker traina) (get-train-rail-type traina) (get-train-speed traina)
+                          (get-train-station-stay-time traina) pcar)]
+      [else (constructor-train (get-train-id traina) (get-train-maker traina) (get-train-rail-type traina) (get-train-speed traina)
+                          (get-train-station-stay-time traina) (aux-train-add-car (get-pcar-list traina) pcar position 0 '() ))]))
+  )
 ; Dom: train (train) X pcar (pcar) X position (positive-integer U {0}) -> Rec: train
 ; se debe usar recursividad
 (define outer-train-remove-car
@@ -79,7 +87,7 @@
         (cond
           [(= position auxnum) (append auxpair (cdr pcar-list))]
           [(aux-train-remove-car (cdr pcar-list) position (+ 1 auxnum) (cons (car pcar-list) auxpair))])))
-   (aux-train-remove-car (get-pcar-list train) position 0 '() )))
+    (aux-train-remove-car (get-pcar-list train) position 0 '() )))
 
 (define train-remove-car
   (lambda(traina position)
@@ -95,13 +103,14 @@
       [(if
         (equal? (car list) element) (aux-count (cdr list) element (+ 1 counter)) (aux-count (cdr list) element counter))])))
 
-; El paso recursivo ocurre en la fimcopm aixpoñoar
+; El paso recursivo ocurre en la función auxiliar
 (define train?
   (lambda(train)
     (cond
       [(empty? (get-pcar-list train)) #f]
-      [else (and (equal? (get-pcar-type(car (get-pcar-list train))) "terminal") (equal? (get-pcar-type(car(reverse (get-pcar-list train)))) "terminal")
-                 (= 2 (apply +(map (lambda(pcar) (aux-count pcar "terminal" 0)) (get-pcar-list train))))) #t])))
+      [(and (not(equal? (get-pcar-type(car (get-pcar-list train))) "terminal")) (not(equal? (get-pcar-type(car(reverse (get-pcar-list train)))) "terminal"))
+                 (not(= 2 (apply +(map (lambda(pcar) (aux-count pcar "terminal" 0)) (get-pcar-list train))))) (empty? (get-pcar-list train))) #f]
+      [else #t])))
 
 ; Alguna recursividad; en este caso, natural.
 ; Dom: train -> Rec: positive-number U {0}

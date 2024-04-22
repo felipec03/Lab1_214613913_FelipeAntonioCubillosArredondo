@@ -24,3 +24,4 @@
 (define get-distance
   (lambda (section)
     car(car(cdr(cdr section)))))
+
