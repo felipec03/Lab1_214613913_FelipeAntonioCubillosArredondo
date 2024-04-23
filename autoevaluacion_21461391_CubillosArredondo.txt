@@ -5,15 +5,15 @@ Felipe Antonio Cubillos Arredondo
 *Requisitos Funcionales*
 - TDA STATION - constructor: 1
 - TDA SECTION - constructor: 1
-- TDA LINE - constructor: 1
+- TDA LINE - constructor: 0,5
 - TDA LINE - line-length: 1
 - TDA LINE - line-section-length: 1
 - TDA LINE - line-cost: 1
 - TDA LINE - line-section-cost: 1
 - TDA LINE - line-add-section: 1
-- TDA LINE - line?: 0,75
+- TDA LINE - line?: 0,5
 - TDA PCAR - constructor: 1
-- TDA TRAIN - constructor: 1
+- TDA TRAIN - constructor: 0,75
 - TDA TRAIN - train-add-car: 0,5
 - TDA TRAIN - train-remove-car: 0,75
 - TDA TRAIN - train?: 0,5

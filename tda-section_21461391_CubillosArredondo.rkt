@@ -16,11 +16,12 @@
       [(equal? (get-station-type point1) "mantencion")(list point1 point2 (abs distance) (abs cost))]
       [else null]
     )))
-
+; Dom: section -> num
 (define get-cost
   (lambda (section)
     car(car(cdr(cdr(cdr section))))))
 
+; Dom: section -> num
 (define get-distance
   (lambda (section)
     car(car(cdr(cdr section)))))

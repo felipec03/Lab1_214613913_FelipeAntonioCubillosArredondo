@@ -17,14 +17,17 @@
 
 (define pc0 (pcar 0 100 "NS-74" ct))
 
+; Dom: pcar -> Rec: id (int)
 (define get-pcar-id
   (lambda(pcar)
     (car pcar)))
 
+; Dom: pcar -> Rec: pcar-type
 (define get-pcar-type
   (lambda(pcar)
     (cdddr pcar)))
 
+; Dom: pcar -> Rec: capacity (int)
 (define get-pcar-capacity
   (lambda (pcar)
     (cond

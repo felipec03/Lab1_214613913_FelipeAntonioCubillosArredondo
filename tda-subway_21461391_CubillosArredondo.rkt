@@ -41,14 +41,8 @@
       (lambda(sub aux)
         (cond
           [(empty? aux) sub]
-          [else (inner-add-train (cons (get-subway-id sub)
-                                  (cons (get-subway-name sub)
-                                        (cons(cons (car aux) (get-subway-trains sub))
-                                              (cons (get-subway-lines sub)
-                                                    (cons (get-subway-drivers sub) null)))))
-                            (cdr aux))])))
-    (inner-add-train sub train)
-    ))
+          [else (inner-add-train (cons (get-subway-id sub)(cons (get-subway-name sub) (cons(cons (car aux) (get-subway-trains sub))(cons (get-subway-lines sub)(cons (get-subway-drivers sub) null)))))
+                                 (cdr aux))])))(inner-add-train sub train)))
 
 ; no usar recursividad
 ;Dom: sub (subway) X line+ -> Rec: subway
