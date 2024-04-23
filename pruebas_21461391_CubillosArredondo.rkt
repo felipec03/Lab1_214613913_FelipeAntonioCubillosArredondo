@@ -166,6 +166,14 @@
 (subway-add-train misub1 mit2 mit3)
 (subway-add-train misub2 mit1)
 
+(subway-add-line misub0 mil0 mil1)
+(subway-add-line misub1 mil1 mil2)
+(subway-add-line misub2 mit0)
+
+(subway-add-driver misub0 mid0 mid1)
+(subway-add-driver misub1 mid2 mid3)
+(subway-add-driver misub2 mid4)
+
 (subway->string misub0)
 (subway->string misub1)
 (subway->string misub2)
