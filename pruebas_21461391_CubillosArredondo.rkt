@@ -168,7 +168,7 @@
 
 (subway-add-line misub0 mil0 mil1)
 (subway-add-line misub1 mil1 mil2)
-(subway-add-line misub2 mit0)
+(subway-add-line misub2 mil0)
 
 (subway-add-driver misub0 mid0 mid1)
 (subway-add-driver misub1 mid2 mid3)
